@@ -20,8 +20,8 @@ ext {
     // Moshi
     moshi = "1.12.0"
 
-    // Detekt
-    detekt = "1.15.0"
+    // Klint
+    klint = "0.42.1"
 
     // Test
     junit = "4.13.2"
@@ -42,7 +42,8 @@ ext {
         koin: "io.insert-koin:koin-android:$koin",
         retrofit: "com.squareup.retrofit2:retrofit:$retrofit:",
         moshi: "com.squareup.moshi:moshi:$moshi",
-        detekt: "io.gitlab.arturbosch.detekt:detekt-formatting:$detekt",
+
+        ktlint: "com.pinterest:ktlint:$klint",
 
         junit: "junit:junit:$junit",
         mockk: "io.mockk:mockk:$mockk",

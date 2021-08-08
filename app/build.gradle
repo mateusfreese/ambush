@@ -35,6 +35,10 @@ android {
     }
 }
 
+configurations {
+    ktlint
+}
+
 dependencies {
     def dependencies = rootProject.ext.dependencies
 
@@ -50,9 +54,27 @@ dependencies {
     implementation dependencies.retrofit
     implementation dependencies.moshi
 
-    implementation dependencies.detekt
+    ktlint dependencies.ktlint
 
     testImplementation dependencies.junit
     testImplementation dependencies.mockk
     androidTestImplementation dependencies.androidx_junit
+}
+
+task ktlint(type: JavaExec, group: "verification") {
+    description = "Check Kotlin code style."
+    main = "com.pinterest.ktlint.Main"
+    classpath = configurations.ktlint
+    args "src/**/*.kt"
+    // to generate report in checkstyle format prepend following args:
+    // "--reporter=plain", "--reporter=checkstyle,output=${buildDir}/ktlint.xml"
+    // see https://github.com/pinterest/ktlint#usage for more
+}
+check.dependsOn ktlint
+
+task ktlintFormat(type: JavaExec, group: "formatting") {
+    description = "Fix Kotlin code style deviations."
+    main = "com.pinterest.ktlint.Main"
+    classpath = configurations.ktlint
+    args "-F", "src/**/*.kt"
 }
