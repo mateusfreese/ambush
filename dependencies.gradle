@@ -1,52 +1,61 @@
 ext {
     // Base dependencies
     kotlin_version = "1.4.32"
-    buildTools = "4.1.3"
-    androidx_Core = "1.6.0"
-    app_compat = "1.3.1"
-    material = "1.4.0"
-    constraint_layout = "2.1.0"
-    lifecycle = "2.3.1"
+    buildTools_version = "4.1.3"
+    androidx_Core_version = "1.6.0"
+    app_compat_version = "1.3.1"
+    material_version = "1.4.0"
+    constraint_layout_version = "2.1.0"
+    lifecycle_version = "2.3.1"
 
     // Coroutines
-    coroutines = "1.3.9"
+    coroutines_version = "1.3.9"
 
     // Koin
-    koin = "3.1.2"
+    koin_version = "3.1.2"
 
     // Retrofit
-    retrofit = "2.9.0"
+    retrofit_version = "2.9.0"
+
+    // Http interceptor
+    http_interceptor_version = "4.9.0"
+
+    // Navigation
+    nav_version = "2.3.5"
 
     // Moshi
-    moshi = "1.12.0"
+    moshi_version = "1.12.0"
 
     // Klint
-    klint = "0.42.1"
+    klint_version = "0.42.1"
 
     // Test
-    junit = "4.13.2"
-    androidx_junit = "1.1.3"
+    junit_version = "4.13.2"
+    androidx_junit_version = "1.1.3"
 
     // Mockk
-    mockk = "1.12.0"
+    mockk_version = "1.12.0"
 
     dependencies = [
-        kotlin: "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
-        androixCore: "androidx.core:core-ktx:$androidx_Core",
-        appCompat: "androidx.appcompat:appcompat:$app_compat",
-        material: "com.google.android.material:material:$material",
-        constraintLayout: "androidx.constraintlayout:constraintlayout:$constraint_layout",
-        lifecycle_livedata: "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle",
-        lifecycle_viewmodel: "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle",
-        coroutines: "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines",
-        koin: "io.insert-koin:koin-android:$koin",
-        retrofit: "com.squareup.retrofit2:retrofit:$retrofit:",
-        moshi: "com.squareup.moshi:moshi:$moshi",
+            kotlin            : "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
+            androixCore       : "androidx.core:core-ktx:$androidx_Core_version",
+            appCompat         : "androidx.appcompat:appcompat:$app_compat_version",
+            material          : "com.google.android.material:material:$material_version",
+            constraintLayout  : "androidx.constraintlayout:constraintlayout:$constraint_layout_version",
+            lifecycleLivedata : "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version",
+            lifecycleViewmodel: "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version",
+            coroutines        : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version",
+            koin              : "io.insert-koin:koin-android:$koin_version",
+            retrofit          : "com.squareup.retrofit2:retrofit:$retrofit_version",
+            httpInterceptor   : "com.squareup.okhttp3:okhttp:$http_interceptor_version",
+            moshi             : "com.squareup.moshi:moshi:$moshi_version",
+            navigationFragment: "androidx.navigation:navigation-fragment-ktx:$nav_version",
+            navigationUi      : "androidx.navigation:navigation-ui-ktx:$nav_version",
 
-        ktlint: "com.pinterest:ktlint:$klint",
+            ktlint            : "com.pinterest:ktlint:$klint_version",
 
-        junit: "junit:junit:$junit",
-        mockk: "io.mockk:mockk:$mockk",
-        androidx_junit: "androidx.test.ext:junit:$androidx_junit",
+            junit             : "junit:junit:$junit_version",
+            mockk             : "io.mockk:mockk:$mockk_version",
+            androidxJunit     : "androidx.test.ext:junit:$androidx_junit_version",
     ]
 }

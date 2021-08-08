@@ -47,18 +47,21 @@ dependencies {
     implementation dependencies.appCompat
     implementation dependencies.material
     implementation dependencies.constraintLayout
-    implementation dependencies.lifecycle_livedata
-    implementation dependencies.lifecycle_viewmodel
+    implementation dependencies.lifecycleLivedata
+    implementation dependencies.lifecycleViewmodel
     implementation dependencies.coroutines
     implementation dependencies.koin
     implementation dependencies.retrofit
+    implementation dependencies.httpInterceptor
+    implementation dependencies.navigationFragment
+    implementation dependencies.navigationUi
     implementation dependencies.moshi
 
     ktlint dependencies.ktlint
 
     testImplementation dependencies.junit
     testImplementation dependencies.mockk
-    androidTestImplementation dependencies.androidx_junit
+    androidTestImplementation dependencies.androidxJunit
 }
 
 task ktlint(type: JavaExec, group: "verification") {
@@ -66,9 +69,6 @@ task ktlint(type: JavaExec, group: "verification") {
     main = "com.pinterest.ktlint.Main"
     classpath = configurations.ktlint
     args "src/**/*.kt"
-    // to generate report in checkstyle format prepend following args:
-    // "--reporter=plain", "--reporter=checkstyle,output=${buildDir}/ktlint.xml"
-    // see https://github.com/pinterest/ktlint#usage for more
 }
 check.dependsOn ktlint
 
