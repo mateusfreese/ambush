@@ -1,4 +1,4 @@
-package com.ambush.ambushchallenge
+package com.ambush.ambushchallenge.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +7,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.ambush.ambushchallenge.R
 import com.ambush.ambushchallenge.databinding.MainActivityBinding
 
 class MainActivity : AppCompatActivity() {
@@ -20,10 +21,10 @@ class MainActivity : AppCompatActivity() {
         binding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupNavigation()
+        setupActionBarWithNavigate()
     }
 
-    private fun setupNavigation() {
+    private fun setupActionBarWithNavigate() {
         setSupportActionBar(binding.toolbar)
 
         navController = findNavController(R.id.navHostFragment)
