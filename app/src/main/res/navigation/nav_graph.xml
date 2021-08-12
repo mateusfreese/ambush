@@ -7,8 +7,8 @@
 
     <fragment
         android:id="@+id/repositoryListFragment"
-        android:name="com.ambush.ambushchallenge.ui.repositorylist.RepositoryListFragment"
-        android:label="fragment_repository_list"
+        android:name="com.ambush.ambushchallenge.ui.fragments.RepositoryListFragment"
+        android:label="@string/repository_list_title"
         tools:layout="@layout/fragment_repository_list" >
         <action
             android:id="@+id/action_repositoryListFragment_to_repositoryFilterFragment"
@@ -17,7 +17,8 @@
 
     <fragment
         android:id="@+id/repositoryFilterFragment"
-        android:name="com.ambush.ambushchallenge.ui.repositoryfilter.RepositoryFilterFragment"
-        android:label="RepositoryFilterFragment" />
+        android:name="com.ambush.ambushchallenge.ui.fragments.RepositoryFilterFragment"
+        android:label="@string/repository_filter_title"
+        tools:layout="@layout/fragment_repository_filter"/>
 
 </navigation>

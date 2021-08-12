@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.repositorylist.RepositoryListFragment">
+    tools:context=".ui.fragments.RepositoryListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvRepositoryList"
@@ -13,5 +13,11 @@
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_language"/>
+
+    <include
+        android:id="@+id/dialog_error"
+        android:visibility="gone"
+        tools:visibility="visible"
+        layout="@layout/custom_error" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

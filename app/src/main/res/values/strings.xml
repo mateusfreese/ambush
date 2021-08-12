@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">Ambush Challenge</string>
+
+    <!--  Repository List Fragment  -->
+    <string name="none_language">None language</string>
+    <string name="repository_list_title">Ambush projects per language</string>
+    <string name="repository_list_main_name">Main language: %s</string>
+    <string name="repository_list_projects_count">projects: %d</string>
+
+    <!--  Repository filter Fragment  -->
+    <string name="repository_filter_title">Projects</string>
+    <string name="repository_filter_project_name">Project name: %s</string>
+    <string name="repository_filter_created_at_date">Created at date: %s</string>
+    <string name="repository_filter_updated_at_date">Updated at date: %s</string>
+    <string name="repository_filter_issues">Number of issues: %d</string>
+
+    <!--  Custom Error Dialog -->
+    <string name="dialog_title">Error!</string>
+    <string name="dialog_try_again">Try again</string>
+
+    <!-- offline Snackbar -->
+    <string name="you_are_offline">You are offline!</string>
+    <string name="go_to_online">Go to online</string>
 </resources>
