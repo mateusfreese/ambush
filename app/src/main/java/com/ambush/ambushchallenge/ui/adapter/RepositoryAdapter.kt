@@ -7,26 +7,25 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ambush.ambushchallenge.R
-import com.ambush.ambushchallenge.data.remote.response.AmbushReposResponse
+import com.ambush.ambushchallenge.data.model.AmbushRepository
 import com.ambush.ambushchallenge.databinding.ItemRepositoryBinding
 import com.ambush.ambushchallenge.extensions.toFormattedDateTime
-import java.lang.Exception
 
 class RepositoryAdapter :
-    ListAdapter<AmbushReposResponse, RepositoryAdapter.RepositoryViewHolder>(diffItemCallback) {
+    ListAdapter<AmbushRepository, RepositoryAdapter.RepositoryViewHolder>(diffItemCallback) {
 
     companion object {
-        val diffItemCallback = object : DiffUtil.ItemCallback<AmbushReposResponse>() {
+        val diffItemCallback = object : DiffUtil.ItemCallback<AmbushRepository>() {
             override fun areItemsTheSame(
-                oldItem: AmbushReposResponse,
-                newItem: AmbushReposResponse
+                oldItem: AmbushRepository,
+                newItem: AmbushRepository
             ): Boolean {
                 return oldItem.id == newItem.id
             }
 
             override fun areContentsTheSame(
-                oldItem: AmbushReposResponse,
-                newItem: AmbushReposResponse
+                oldItem: AmbushRepository,
+                newItem: AmbushRepository
             ): Boolean {
                 return oldItem == newItem
             }
@@ -38,7 +37,7 @@ class RepositoryAdapter :
     ) : RecyclerView.ViewHolder(itemBind.root) {
         private val context: Context = itemBind.root.context
 
-        fun bind(item: AmbushReposResponse) {
+        fun bind(item: AmbushRepository) {
             itemBind.run {
                 tvProjectName.text = getFormattedName(item.name)
                 tvCreatedAtDate.text = getFormattedCreatedDate(item.createdAt.toFormattedDateTime())
@@ -60,11 +59,8 @@ class RepositoryAdapter :
         }
 
         private fun getFormattedNumberOfIssues(issues: Int?): String {
-            return try {
-                context.getString(R.string.repository_filter_issues, issues)
-            } catch (e: Exception) {
-                ""
-            }
+            return issues?.let { context.getString(R.string.repository_filter_issues, issues) }
+                ?: ""
         }
 
         companion object {

@@ -23,6 +23,9 @@ ext {
     // Navigation
     nav_version = "2.3.5"
 
+    // Paper
+    paper_version = "2.7.1"
+
     // Moshi
     moshi_version = "1.12.0"
 
@@ -51,6 +54,7 @@ ext {
             moshi             : "com.squareup.retrofit2:converter-moshi:$retrofit_version",
             navigationFragment: "androidx.navigation:navigation-fragment-ktx:$nav_version",
             navigationUi      : "androidx.navigation:navigation-ui-ktx:$nav_version",
+            paper             : "io.github.pilgr:paperdb:$paper_version",
 
             ktlint            : "com.pinterest:ktlint:$klint_version",
 

@@ -59,7 +59,7 @@ abstract class BaseFragment<T : ViewBinding> : Fragment() {
             getString(R.string.you_are_offline),
             Snackbar.LENGTH_INDEFINITE
         ).apply {
-            setAction(getString(R.string.go_to_online)) {
+            setAction(getString(R.string.retry)) {
                 isConnected()
                 getData()
             }

@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -62,6 +63,7 @@ dependencies {
     implementation dependencies.navigationFragment
     implementation dependencies.navigationUi
     implementation dependencies.moshi
+    implementation dependencies.paper
 
     ktlint dependencies.ktlint
 

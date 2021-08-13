@@ -4,11 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ambush.ambushchallenge.data.model.Language
+import com.ambush.ambushchallenge.data.Repository
 import com.ambush.ambushchallenge.data.remote.ResultWrapper
-import com.ambush.ambushchallenge.data.remote.response.AmbushReposResponse
 import com.ambush.ambushchallenge.data.remote.state.State
-import com.ambush.ambushchallenge.data.repository.Repository
+import com.ambush.ambushchallenge.extensions.groupReposByLanguage
+import com.ambush.ambushchallenge.extensions.sortReposByIssues
 import kotlinx.coroutines.launch
 
 class RepositoryViewModel(private val repository: Repository) : ViewModel() {
@@ -16,54 +16,34 @@ class RepositoryViewModel(private val repository: Repository) : ViewModel() {
     private val _state = MutableLiveData<State>()
     val state: LiveData<State> get() = _state
 
-    private val _languageRepos = MutableLiveData<List<AmbushReposResponse>>()
-    val languageRepos: LiveData<List<AmbushReposResponse>> get() = _languageRepos
-
-    private val _ambushReposResponse = MutableLiveData<List<AmbushReposResponse>>()
-
-    fun loadAmbushRepos(isConnected: Boolean?) {
-        _ambushReposResponse.value.let {
-            when {
-                !it.isNullOrEmpty() -> {
-                    handlerGetAmbushReposSuccess(it)
-                }
-                isConnected == true -> {
-                    getAmbushRepos()
-                }
-                isConnected == false -> {
-                    getLocalAmbushRepos()
+    fun getAmbushReposByLanguage() {
+        viewModelScope.launch {
+            showLoading()
+            when (val response = repository.getAmbushRepositoryLanguageList()) {
+                is ResultWrapper.Error -> _state.postValue(State.Error(response.error))
+                is ResultWrapper.Success -> {
+                    response.value.groupReposByLanguage().let {
+                        _state.postValue(State.OnSuccessGetRepositoryLanguageList(it))
+                    }
                 }
             }
+            dismissLoading()
         }
     }
 
-    private fun getAmbushRepos() {
+    fun getAmbushRepositories(languageName: String) {
         viewModelScope.launch {
             showLoading()
-            when (val response = repository.getAmbushRepos()) {
+            when (val response = repository.getAmbushRepositoryByLanguage(languageName)) {
                 is ResultWrapper.Error -> {
-                    getAmbushReposErrorHandler(response.error)
+                    _state.postValue(State.Error(response.error))
                 }
                 is ResultWrapper.Success -> {
-                    handlerGetAmbushReposSuccess(response.value)
+                    response.value
+                        .sortReposByIssues()
+                        .let { _state.postValue(State.OnSuccessGetRepositoryFilteredByLanguage(it)) }
                 }
             }
-            dismissLoading()
-        }
-    }
-
-    private fun getLocalAmbushRepos() {
-        viewModelScope.launch {
-            showLoading()
-//            TODO("IMPLEMENT getLocalAmbushRepos")
-            dismissLoading()
-        }
-    }
-
-    fun getLanguageRepos(language: Language) {
-        viewModelScope.launch {
-            showLoading()
-            handlerGetAmbushLanguageRepos(language)
             dismissLoading()
         }
     }
@@ -74,34 +54,5 @@ class RepositoryViewModel(private val repository: Repository) : ViewModel() {
 
     private fun dismissLoading() {
         _state.value = State.Loading(false)
-    }
-
-    private fun getAmbushReposErrorHandler(errorMessage: String) {
-        _state.value = State.Error(errorMessage)
-    }
-
-    private fun handlerGetAmbushReposSuccess(response: List<AmbushReposResponse>) {
-        _ambushReposResponse.value = response
-
-        groupReposByLanguage(response).let {
-            _state.value = State.OnSuccessGetAmbushRepos(it)
-        }
-    }
-
-    private fun handlerGetAmbushLanguageRepos(language: Language) {
-        _ambushReposResponse.value?.let {
-            sortReposByIssues(it.filter { item -> item.language == language.name })
-                .let { sortedList -> _languageRepos.value = sortedList }
-            _state.value = State.OnSuccessSortAmbushLanguageRepos
-        }
-    }
-
-    private fun groupReposByLanguage(repos: List<AmbushReposResponse>): List<Language> {
-        val reposByLanguage = repos.groupBy { it.language }
-        return reposByLanguage.map { Language(it.key, it.value.size) }
-    }
-
-    private fun sortReposByIssues(repos: List<AmbushReposResponse>): List<AmbushReposResponse> {
-        return repos.sortedBy { it.openIssuesCount }
     }
 }

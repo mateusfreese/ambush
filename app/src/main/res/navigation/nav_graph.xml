@@ -19,6 +19,11 @@
         android:id="@+id/repositoryFilterFragment"
         android:name="com.ambush.ambushchallenge.ui.fragments.RepositoryFilterFragment"
         android:label="@string/repository_filter_title"
-        tools:layout="@layout/fragment_repository_filter"/>
+        tools:layout="@layout/fragment_repository_filter" >
+        <argument
+            android:name="selectedLanguageName"
+            app:nullable="true"
+            app:argType="string"/>
+    </fragment>
 
 </navigation>

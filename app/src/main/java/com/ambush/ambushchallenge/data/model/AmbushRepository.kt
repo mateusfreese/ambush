@@ -1,8 +1,8 @@
-package com.ambush.ambushchallenge.data.remote.response
+package com.ambush.ambushchallenge.data.model
 
 import com.squareup.moshi.Json
 
-data class AmbushReposResponse(
+data class AmbushRepository(
     @field:Json(name = "id")
     val id: Int?,
 

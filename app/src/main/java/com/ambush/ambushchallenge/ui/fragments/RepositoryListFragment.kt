@@ -1,5 +1,6 @@
 package com.ambush.ambushchallenge.ui.fragments
 
+import android.os.Bundle
 import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
@@ -29,7 +30,7 @@ class RepositoryListFragment : BaseFragment<FragmentRepositoryListBinding>() {
     }
 
     override fun getData() {
-        viewModel.loadAmbushRepos(isConnected.value)
+        viewModel.getAmbushReposByLanguage()
     }
 
     private fun initStateObservers() {
@@ -37,18 +38,20 @@ class RepositoryListFragment : BaseFragment<FragmentRepositoryListBinding>() {
             when (state) {
                 is State.Error -> errorDialogHandler(state.errorMessage)
                 is State.Loading -> showLoading(state.show)
-                is State.OnSuccessGetAmbushRepos -> setRecyclerData(state.repos)
-                is State.OnSuccessSortAmbushLanguageRepos -> navigateToRepositoryFilter()
+                is State.OnSuccessGetRepositoryLanguageList -> setRecyclerData(state.data)
+                else -> {
+                }
             }
         })
     }
 
     private fun initRecycler() {
         binding.rvRepositoryList.let { rv ->
-            rv.layoutManager = StaggeredGridLayoutManager(RV_SPAN_COUNT, StaggeredGridLayoutManager.VERTICAL)
+            rv.layoutManager =
+                StaggeredGridLayoutManager(RV_SPAN_COUNT, StaggeredGridLayoutManager.VERTICAL)
             LanguageAdapter().apply {
                 languageItemClickListener = { language ->
-                    viewModel.getLanguageRepos(language)
+                    language.name?.let { navigateToRepositoryFilter(it) }
                 }
             }.also { adapter ->
                 languageAdapter = adapter
@@ -61,9 +64,10 @@ class RepositoryListFragment : BaseFragment<FragmentRepositoryListBinding>() {
         languageAdapter.submitList(data)
     }
 
-    private fun navigateToRepositoryFilter() {
+    private fun navigateToRepositoryFilter(languageName: String) {
         findNavController().navigateWithAnimations(
-            R.id.action_repositoryListFragment_to_repositoryFilterFragment
+            R.id.action_repositoryListFragment_to_repositoryFilterFragment,
+            Bundle().apply { putString(SELECTED_LANGUAGE_NAME, languageName) }
         )
     }
 
@@ -92,5 +96,6 @@ class RepositoryListFragment : BaseFragment<FragmentRepositoryListBinding>() {
 
     companion object {
         const val RV_SPAN_COUNT = 3
+        const val SELECTED_LANGUAGE_NAME = "selectedLanguageName"
     }
 }
