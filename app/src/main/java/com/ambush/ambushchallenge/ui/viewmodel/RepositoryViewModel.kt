@@ -7,13 +7,12 @@ import androidx.lifecycle.viewModelScope
 import com.ambush.ambushchallenge.data.Repository
 import com.ambush.ambushchallenge.data.remote.ResultWrapper
 import com.ambush.ambushchallenge.data.remote.state.State
-import com.ambush.ambushchallenge.extensions.groupReposByLanguage
 import com.ambush.ambushchallenge.extensions.sortReposByIssues
 import kotlinx.coroutines.launch
 
 class RepositoryViewModel(private val repository: Repository) : ViewModel() {
 
-    val _state = MutableLiveData<State>()
+    private val _state = MutableLiveData<State>()
     val state: LiveData<State> get() = _state
 
     fun getAmbushReposLanguageList() {
@@ -22,9 +21,7 @@ class RepositoryViewModel(private val repository: Repository) : ViewModel() {
             when (val response = repository.getAmbushRepositoryLanguageList()) {
                 is ResultWrapper.Error -> _state.postValue(State.Error(response.error))
                 is ResultWrapper.Success -> {
-                    response.value.let {
-                        _state.value = (State.OnSuccessGetRepositoryLanguageList(it))
-                    }
+                    _state.value = State.OnSuccessGetRepositoryLanguageList(response.value)
                 }
             }
             dismissLoading()
