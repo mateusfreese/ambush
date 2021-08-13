@@ -30,7 +30,7 @@ class RepositoryListFragment : BaseFragment<FragmentRepositoryListBinding>() {
     }
 
     override fun getData() {
-        viewModel.getAmbushReposByLanguage()
+        viewModel.getAmbushReposLanguageList()
     }
 
     private fun initStateObservers() {

@@ -20,7 +20,7 @@ class RepositoryFilterFragment : BaseFragment<FragmentRepositoryFilterBinding>()
 
     override fun getData() {
         args.selectedLanguageName?.let {
-            viewModel.getAmbushRepositories(it)
+            viewModel.getAmbushRepositoriesByLanguage(it)
         }
     }
 

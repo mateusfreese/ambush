@@ -13,17 +13,17 @@ import kotlinx.coroutines.launch
 
 class RepositoryViewModel(private val repository: Repository) : ViewModel() {
 
-    private val _state = MutableLiveData<State>()
+    val _state = MutableLiveData<State>()
     val state: LiveData<State> get() = _state
 
-    fun getAmbushReposByLanguage() {
+    fun getAmbushReposLanguageList() {
         viewModelScope.launch {
             showLoading()
             when (val response = repository.getAmbushRepositoryLanguageList()) {
                 is ResultWrapper.Error -> _state.postValue(State.Error(response.error))
                 is ResultWrapper.Success -> {
-                    response.value.groupReposByLanguage().let {
-                        _state.postValue(State.OnSuccessGetRepositoryLanguageList(it))
+                    response.value.let {
+                        _state.value = (State.OnSuccessGetRepositoryLanguageList(it))
                     }
                 }
             }
@@ -31,7 +31,7 @@ class RepositoryViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-    fun getAmbushRepositories(languageName: String) {
+    fun getAmbushRepositoriesByLanguage(languageName: String) {
         viewModelScope.launch {
             showLoading()
             when (val response = repository.getAmbushRepositoryByLanguage(languageName)) {
